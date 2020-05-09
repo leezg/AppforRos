@@ -1,6 +1,8 @@
 package com.example.appforros.ui.login;
 
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ public class LoginFragment extends Fragment {
         TextView register = root.findViewById(R.id.user_register);
         final EditText user_account = root.findViewById(R.id.user_account);
         final EditText user_password = root.findViewById(R.id.user_password);
+        user_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
