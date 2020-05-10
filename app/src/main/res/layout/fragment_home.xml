@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:textSize="20sp"
-            android:text="机器人0:" />
+            android:text="机器人:" />
 
         <EditText
             android:id="@+id/robot_ip"

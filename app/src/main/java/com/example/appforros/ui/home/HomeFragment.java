@@ -15,10 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appforros.R;
+import com.example.appforros.Robot;
+import com.example.appforros.RobotList;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
@@ -29,6 +32,7 @@ public class HomeFragment extends Fragment {
     private List<String> list = new ArrayList<String>();
     private RecycleAdapter adapter;
     private View root;
+    private final RobotList robotList = RobotList.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class HomeFragment extends Fragment {
         robot_id = root.findViewById(R.id.robot_id);
         robot_ip = root.findViewById(R.id.robot_ip);
 
+
         initRecycle();
         iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +53,11 @@ public class HomeFragment extends Fragment {
                     Snackbar.make(v, "请输入正确ip地址" + ip_true, Snackbar.LENGTH_SHORT).show();
                     robot_ip.setText("");
                 } else {
-                    adapter.addData(list.size(), ip_true, robot_ip.getText().toString());
+                    Robot robot = new Robot(ip_true, robot_ip.getText().toString());
+                    robotList.addRobot(robot);
+                    adapter.addData(robotList.getRobot_count()/*, ip_true, robot_ip.getText().toString()*/);
                     robot_ip.setText("");
-                    robot_id.setText("机器人" + list.size());
+                    //robot_id.setText("机器人");
                 }
             }
         });
@@ -60,16 +67,10 @@ public class HomeFragment extends Fragment {
     private void initRecycle() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        list = initData();
-        adapter = new RecycleAdapter(this.getActivity(), list);
+        //list = initData();
+        adapter = new RecycleAdapter(this.getActivity(), robotList);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    protected ArrayList<String> initData() {
-        ArrayList<String> mDatas = new ArrayList<String>();
-
-        return mDatas;
     }
 
     private long ipCheck(String ip) {

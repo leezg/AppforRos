@@ -7,19 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.appforros.R;
+import com.example.appforros.Robot;
+import com.example.appforros.RobotList;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
     private Context context;
-    private List<String> list;
+    //private List<String> list;
     private long ip;
     private String ip_form;
+    private RobotList robotList;
     
-    public RecycleAdapter(Context context, List<String> list) {
+    public RecycleAdapter(Context context, RobotList robotList) {
         this.context = context;
-        this.list = list;
+        this.robotList = robotList;
     }
 
     @Override
@@ -32,36 +35,49 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.tv.setText(list.get(position));
+        final Robot robot = robotList.getRobotById(position);
+        //holder.tv.setText(list.get(position));
+        holder.tv.setText("机器人" + position + ":\t" + robot.getForm_ip());
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeData(position);
+                //Snackbar.make(v, "删除:" + position, Snackbar.LENGTH_SHORT).show();
+                removeData(position, v);
+                System.out.println("************");
             }
         });
         holder.robot_connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "连接到:" + ip_form, Snackbar.LENGTH_SHORT).show();
+                robotList.setChosed_id(position);
+                Snackbar.make(v, "连接到:" + robot.getForm_ip(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }
     @Override
     public int getItemCount() {
-        return list.size();
+        return robotList.size();
     }
 
-    public void addData(int position, long ip, String ip_form) {
-        list.add( "机器人" + position + "\t ip:" + ip_form);
+    public void addData(int position/*, long ip, String ip_form*/) {
+        /*list.add( "机器人" + position + "\t ip:" + ip_form);
         this.ip = ip;
-        this.ip_form = ip_form;
+        this.ip_form = ip_form;*/
+        System.out.println(position);
         notifyItemInserted(position);
     }
 
-    public void removeData(int position) {
-        list.remove(position);
+    public void removeData(int position, View v) {
+        //list.remove(position);
+        if (robotList.getChosed_id() == position) {
+            robotList.setChosed_id(-1);
+        }
+        robotList.removeRobotById(position);
+        System.out.println(position);
         notifyItemRemoved(position);
+        //System.out.println(robotList.getRobot_count() + " " + robotList.size());
         notifyDataSetChanged();
+        //System.out.println(robotList.getRobot_count() + " " + robotList.size());
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

@@ -14,9 +14,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appforros.R;
+import com.example.appforros.RobotList;
 import com.google.android.material.snackbar.Snackbar;
 
 public class GalleryFragment extends Fragment {
+    private RobotList robotList = RobotList.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -25,11 +27,13 @@ public class GalleryFragment extends Fragment {
         Button backoff  = root.findViewById(R.id.backoff);
         Button turnleft = root.findViewById(R.id.turn_left);
         Button turnright = root.findViewById(R.id.turn_right);
+        final int chosed_id = robotList.getChosed_id();
+
 
         forward.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "发送前进指令", Snackbar.LENGTH_LONG)
+                Snackbar.make(v,"机器人" + chosed_id + "发送前进指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -37,7 +41,7 @@ public class GalleryFragment extends Fragment {
         backoff.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "发送后退指令", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "机器人" + chosed_id + "发送后退指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -45,7 +49,7 @@ public class GalleryFragment extends Fragment {
         turnleft.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "发送左转指令", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "机器人" + chosed_id + "发送左转指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -53,7 +57,7 @@ public class GalleryFragment extends Fragment {
         turnright.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "发送右转指令", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "机器人" + chosed_id + "发送右转指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
