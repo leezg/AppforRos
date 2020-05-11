@@ -9,9 +9,14 @@ public class Robot {
 
     }
 
-    public Robot(long ip,String form_ip) {
+    public Robot(int robot_id, long robot_ip,String form_ip) {
+        this.robot_id = robot_id;
         this.form_ip = form_ip;
-        robot_ip = ip;
+        this.robot_ip = robot_ip;
+    }
+
+    public int getRobot_id() {
+        return robot_id;
     }
 
     public long getRobot_ip() {

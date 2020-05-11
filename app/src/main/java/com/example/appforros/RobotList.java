@@ -6,10 +6,10 @@ import java.util.Map;
 
 public class RobotList {
 
-    private Map<Integer, Robot> robots = new HashMap<>();
+    //private Map<Integer, Robot> robots = new HashMap<>();
     private int robot_count = 0;
     private int chosed_id = -1;
-    //private ArrayList<Robot> robots = new ArrayList<>();
+    private ArrayList<Robot> robots = new ArrayList<>();
 
     private RobotList() {
 
@@ -23,12 +23,22 @@ public class RobotList {
         this.chosed_id = chosed_id;
     }
 
-    public Map<Integer, Robot> getRobots() {
+    public ArrayList<Robot> getRobots() {
         return robots;
     }
 
     public int getChosed_id() {
         return chosed_id;
+    }
+
+    public int getBigestId() {
+        int id = -1;
+        for (Robot robot : robots) {
+            if (robot.getRobot_id() > id) {
+                id = robot.getRobot_id();
+            }
+        }
+        return id;
     }
 
     public int getRobot_count() {
@@ -40,7 +50,8 @@ public class RobotList {
     }
 
     public void addRobot(Robot robot) {
-        robots.put(robot_count++, robot);
+        //robots.put(robot_count++, robot);
+        robots.add(robot);
     }
 
     public void removeRobotById(int id) {

@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
     private RecycleAdapter adapter;
     private View root;
     private final RobotList robotList = RobotList.getInstance();
+    private int bigest_id;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,9 +54,9 @@ public class HomeFragment extends Fragment {
                     Snackbar.make(v, "请输入正确ip地址" + ip_true, Snackbar.LENGTH_SHORT).show();
                     robot_ip.setText("");
                 } else {
-                    Robot robot = new Robot(ip_true, robot_ip.getText().toString());
+                    Robot robot = new Robot(++bigest_id,ip_true, robot_ip.getText().toString());
                     robotList.addRobot(robot);
-                    adapter.addData(robotList.getRobot_count()/*, ip_true, robot_ip.getText().toString()*/);
+                    adapter.addData(robotList.size()/*, ip_true, robot_ip.getText().toString()*/);
                     robot_ip.setText("");
                     //robot_id.setText("机器人");
                 }
@@ -68,7 +69,8 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         //list = initData();
-        adapter = new RecycleAdapter(this.getActivity(), robotList);
+        bigest_id = robotList.getBigestId();
+        adapter = new RecycleAdapter(this.getActivity(), robotList.getRobots());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }

@@ -11,6 +11,7 @@ import com.example.appforros.Robot;
 import com.example.appforros.RobotList;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
@@ -18,11 +19,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     //private List<String> list;
     private long ip;
     private String ip_form;
-    private RobotList robotList;
+    //private RobotList robotList;
+    private ArrayList<Robot> robots;
+    private RobotList robotList = RobotList.getInstance();
     
-    public RecycleAdapter(Context context, RobotList robotList) {
+    public RecycleAdapter(Context context, ArrayList<Robot> robotList) {
         this.context = context;
-        this.robotList = robotList;
+        this.robots = robotList;
     }
 
     @Override
@@ -35,7 +38,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        final Robot robot = robotList.getRobotById(position);
+        //final Robot robot = robotList.getRobotById(position);
+        final Robot robot = robots.get(position);
         //holder.tv.setText(list.get(position));
         holder.tv.setText("机器人" + position + ":\t" + robot.getForm_ip());
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -49,14 +53,15 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         holder.robot_connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                robotList.setChosed_id(position);
+                robotList.setChosed_id(robot.getRobot_id());
+                System.out.println(robot.getRobot_id());
                 Snackbar.make(v, "连接到:" + robot.getForm_ip(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }
     @Override
     public int getItemCount() {
-        return robotList.size();
+        return robots.size();
     }
 
     public void addData(int position/*, long ip, String ip_form*/) {
@@ -72,7 +77,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         if (robotList.getChosed_id() == position) {
             robotList.setChosed_id(-1);
         }
-        robotList.removeRobotById(position);
+        robots.remove(position);
         System.out.println(position);
         notifyItemRemoved(position);
         //System.out.println(robotList.getRobot_count() + " " + robotList.size());
