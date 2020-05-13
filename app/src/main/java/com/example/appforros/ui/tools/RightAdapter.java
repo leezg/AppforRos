@@ -9,15 +9,25 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appforros.R;
+import com.example.appforros.Robot;
+import com.example.appforros.RobotList;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RightViewHolder> {
     private Context context;
     private List<String> list;
     private String command;
+    private String[] forward = {"forward", "move forward", "前进"};
+    private String[] left = {"left", "turn left", "左转"};
+    private String[] right = {"right", "turn right", "右转"};
+    private String[] back = {"back", "backoff", "move back", "后退"};
+    private RobotList robotList = RobotList.getInstance();
+    private Robot robot;
 
     public RightAdapter(Context context, List<String> list) {
         this.context = context;
@@ -35,11 +45,8 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RightViewHol
     @Override
     public void onBindViewHolder(RightAdapter.RightViewHolder holder, final int position) {
         holder.right_chat.setText(command);
-        if (position < 6) {
-            holder.left_chat.setText("success");
-        } else {
-            holder.left_chat.setText("fail");
-        }
+        robot = robotList.getChosed_robot();
+        checkCommand(holder);
     }
 
     @Override
@@ -51,6 +58,24 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RightViewHol
         list.add("test" + position);
         this.command = command;
         notifyItemInserted(position);
+    }
+
+    private void checkCommand(RightAdapter.RightViewHolder holder) {
+        if (Arrays.asList(forward).contains(command)) {
+            robot.move("forward");
+            holder.left_chat.setText("收到指令，机器人前进");
+        } else if (Arrays.asList(back).contains(command)) {
+            robot.move("backoff");
+            holder.left_chat.setText("收到指令，机器人后退");
+        } else if (Arrays.asList(left).contains(command)) {
+            robot.move("turnleft");
+            holder.left_chat.setText("收到指令，机器人左转");
+        } else if (Arrays.asList(right).contains(command)) {
+            robot.move("turnright");
+            holder.left_chat.setText("收到指令，机器人右转");
+        } else {
+            holder.left_chat.setText("错误指令");
+        }
     }
 
 

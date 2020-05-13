@@ -31,6 +31,15 @@ public class RobotList {
         return chosed_id;
     }
 
+    public Robot getChosed_robot() {
+        for (Robot robot : robots) {
+            if (robot.getRobot_id() == chosed_id) {
+                return robot;
+            }
+        }
+        return null;
+    }
+
     public int getBigestId() {
         int id = -1;
         for (Robot robot : robots) {
