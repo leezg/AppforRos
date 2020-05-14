@@ -1,11 +1,15 @@
 package com.example.appforros.ui.gallery;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -15,21 +19,40 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appforros.R;
 import com.example.appforros.RobotList;
+import com.example.appforros.ui.gallery.camera.CameraSurfaceHolder;
 import com.google.android.material.snackbar.Snackbar;
 
 public class GalleryFragment extends Fragment {
     private RobotList robotList = RobotList.getInstance();
+    private View root;
+    private SurfaceView mSurfaceView;
+    private Button forward;
+    private Button backoff;
+    private Button turnleft;
+    private Button turnright;
+    private int chosed_id = -1;
+
+    CameraSurfaceHolder mCameraSurfaceHolder = new CameraSurfaceHolder();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        Button forward = root.findViewById(R.id.forward);
-        Button backoff  = root.findViewById(R.id.backoff);
-        Button turnleft = root.findViewById(R.id.turn_left);
-        Button turnright = root.findViewById(R.id.turn_right);
-        final int chosed_id = robotList.getChosed_id();
+        root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        forward = root.findViewById(R.id.forward);
+        backoff  = root.findViewById(R.id.backoff);
+        turnleft = root.findViewById(R.id.turn_left);
+        turnright = root.findViewById(R.id.turn_right);
+        mSurfaceView = root.findViewById(R.id.mSurfaceView);
+        chosed_id = robotList.getChosed_id();
 
+        if (checkCameraHardware(root.getContext())) {
+            mCameraSurfaceHolder.setCameraSurfaceHolder(root.getContext(), mSurfaceView);
+        }
 
+        buttonClick();
+        return root;
+    }
+
+    private void buttonClick() {
         forward.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -61,6 +84,15 @@ public class GalleryFragment extends Fragment {
                         .setAction("Action", null).show();
             }
         });
-        return root;
+    }
+
+    private boolean checkCameraHardware(Context context) {
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            Toast.makeText(context, "搜索到摄像头硬件", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            Toast.makeText(context, "搜索到摄像头硬件", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 }

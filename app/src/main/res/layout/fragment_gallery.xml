@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
+    <SurfaceView
+        android:id="@+id/mSurfaceView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:text="显示摄像头画面"/>
+        android:text="显示摄像头画面"
+        android:visibility="invisible" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
