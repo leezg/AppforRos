@@ -1,4 +1,4 @@
-package com.example.appforros.ui.home;
+package com.example.appforros.ui.robot;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,9 +21,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class RobotFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private Button iv_add;
@@ -38,7 +37,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        root = inflater.inflate(R.layout.fragment_home, container, false);
+        root = inflater.inflate(R.layout.fragment_robot, container, false);
         iv_add = root.findViewById(R.id.iv_add);
         mRecyclerView = root.findViewById(R.id.recyclerview);
         robot_id = root.findViewById(R.id.robot_id);

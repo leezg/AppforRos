@@ -1,4 +1,4 @@
-package com.example.appforros.ui.home;
+package com.example.appforros.ui.robot;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import com.example.appforros.RobotList;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
     private Context context;

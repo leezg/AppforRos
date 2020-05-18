@@ -1,4 +1,4 @@
-package com.example.appforros.ui.gallery;
+package com.example.appforros.ui.control;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -8,21 +8,17 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appforros.R;
 import com.example.appforros.RobotList;
-import com.example.appforros.ui.gallery.camera.CameraSurfaceHolder;
+import com.example.appforros.ui.control.camera.CameraSurfaceHolder;
 import com.google.android.material.snackbar.Snackbar;
 
-public class GalleryFragment extends Fragment {
+public class ControlFragment extends Fragment {
     private RobotList robotList = RobotList.getInstance();
     private View root;
     private SurfaceView mSurfaceView;
@@ -36,7 +32,7 @@ public class GalleryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        root = inflater.inflate(R.layout.fragment_control, container, false);
         forward = root.findViewById(R.id.forward);
         backoff  = root.findViewById(R.id.backoff);
         turnleft = root.findViewById(R.id.turn_left);

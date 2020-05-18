@@ -1,4 +1,4 @@
-package com.example.appforros.ui.tools;
+package com.example.appforros.ui.chat;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,9 +12,6 @@ import com.example.appforros.R;
 import com.example.appforros.Robot;
 import com.example.appforros.RobotList;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,8 +42,12 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.RightViewHol
     @Override
     public void onBindViewHolder(RightAdapter.RightViewHolder holder, final int position) {
         holder.right_chat.setText(command);
-        robot = robotList.getChosed_robot();
-        checkCommand(holder);
+        if (robotList.getChosed_id() != -1) {
+            robot = robotList.getChosed_robot();
+            checkCommand(holder);
+        } else {
+            holder.left_chat.setText("请连接机器人");
+        }
     }
 
     @Override

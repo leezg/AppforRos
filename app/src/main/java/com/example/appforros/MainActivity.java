@@ -2,7 +2,7 @@ package com.example.appforros;
 
 import android.os.Bundle;
 
-import com.example.appforros.ui.home.RecycleAdapter;
+import com.example.appforros.ui.robot.RecycleAdapter;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,9 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.Button;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_login,R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_login,R.id.nav_robot, R.id.nav_control, R.id.nav_plan,
+                R.id.nav_chat, R.id.nav_help, R.id.nav_developer)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -1,4 +1,4 @@
-package com.example.appforros.ui.tools;
+package com.example.appforros.ui.chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,25 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appforros.R;
-import com.example.appforros.ui.home.RecycleAdapter;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToolsFragment extends Fragment {
+public class ChatFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private Button send_mes;
@@ -37,7 +31,7 @@ public class ToolsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
+        View root = inflater.inflate(R.layout.fragment_chat, container, false);
         send_mes = root.findViewById(R.id.chat_message_send);
         final EditText mes = root.findViewById(R.id.chat_message);
         mRecyclerView = root.findViewById(R.id.recycle_chat);

@@ -1,16 +1,16 @@
-package com.example.appforros.ui.share;
+package com.example.appforros.ui.plan;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ShareViewModel extends ViewModel {
+public class PlanViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ShareViewModel() {
+    public PlanViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("该部分显示开发者信息以及开发环境等");
+        mText.setValue("显示建模的地图");
     }
 
     public LiveData<String> getText() {

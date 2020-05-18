@@ -1,4 +1,4 @@
-package com.example.appforros.ui.send;
+package com.example.appforros.ui.developer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appforros.R;
 
-public class SendFragment extends Fragment {
+public class DeveloperFragment extends Fragment {
 
-    private SendViewModel sendViewModel;
+    private DeveloperViewModel developerViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_send, container, false);
+        developerViewModel =
+                ViewModelProviders.of(this).get(DeveloperViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_developer, container, false);
         final TextView textView = root.findViewById(R.id.text_send);
-        sendViewModel.getText().observe(this, new Observer<String>() {
+        developerViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

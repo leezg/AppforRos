@@ -1,4 +1,4 @@
-package com.example.appforros.ui.gallery.camera;
+package com.example.appforros.ui.control.camera;
 
 import android.content.Context;
 import android.view.SurfaceHolder;

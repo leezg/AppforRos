@@ -1,4 +1,4 @@
-package com.example.appforros.ui.tools;
+package com.example.appforros.ui.chat;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appforros.R;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
