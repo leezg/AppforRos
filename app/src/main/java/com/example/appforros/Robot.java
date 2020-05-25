@@ -1,5 +1,8 @@
 package com.example.appforros;
 
+import android.content.Context;
+import android.content.Intent;
+import android.telephony.mbms.MbmsErrors;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -9,22 +12,39 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Robot {
     private int robot_id = 0;
     private long robot_ip;
     private String form_ip;
     private Socket socket;
+    private String uri = "ws://134.175.14.15:8080/demo/websocket/1";
     private String recvMsg = null;
+    private WebClient webClient;
+    private Context context;
+    private final String FROM = "android";
+    private final String TO = "server";
+    private final String DIRECTION = "direction";
+    private final String REFRESH_MAP = "refresh_map";
+    private final String SEND_DES = "send_des";
 
     public Robot() {
 
     }
 
-    public Robot(int robot_id, long robot_ip,String form_ip) {
+    public Robot(int robot_id, long robot_ip, String form_ip, Context context) {
         this.robot_id = robot_id;
         this.form_ip = form_ip;
         this.robot_ip = robot_ip;
+        this.context = context;
+        try {
+            System.out.println("opentest");
+            webClient = new WebClient(new URI(uri), context);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getRobot_id() {
@@ -39,19 +59,45 @@ public class Robot {
         return form_ip;
     }
 
+    /**检查连接情况
+     */
     public boolean sendHello() {
-        while (sendMessage("hello") == null) {
-            //等待收到应答确保发送完成
-        }
+        Message msg = new Message(FROM, TO, "hello", "hello");
+        sendMessage(msg);
         return true;
     }
 
+    /**方向控制
+     */
     public void move(String direction) {
-        while (sendMessage(direction) == null) {
-            //等待收到应答确保发送完成
-        }
+        Message msg = new Message(FROM, TO, DIRECTION, direction);
+        sendMessage(msg);
     }
 
+    /**更新地图
+     */
+    public void refresh_map() {
+        Message msg = new Message(FROM, TO, REFRESH_MAP, REFRESH_MAP);
+        sendMessage(msg);
+        /**广播功能测试
+
+        Intent intent = new Intent();
+        intent.setAction("map");
+        intent.putExtra("map", "test");
+        System.out.println("send");
+        context.sendBroadcast(intent);
+
+         */
+    }
+
+    /**发送导航点坐标
+     */
+    public void send_des(String des) {
+        Message msg = new Message(FROM, TO, SEND_DES, des);
+        sendMessage(msg);
+    }
+
+    /*
     private String sendMessage (final String Msg){
 
         new Thread(new Runnable() {
@@ -86,6 +132,11 @@ public class Robot {
 
         }).start();
         return recvMsg;
+    }*/
+
+    private void sendMessage(Message msg) {
+        webClient.send(msg.MessageToJson());
+        //System.out.println("send" + Msg.toString());
     }
 
 }
